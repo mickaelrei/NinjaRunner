@@ -7,10 +7,12 @@ public class GroundTurret : Enemy
     public float fireDelay = 1f;
     public float bulletSpeed = 3f;
     public float rotateLerp = .2f;
+    public float findDistance = 15f;
     public Transform target;
     public Transform bulletTemplate;
     public Transform firePoint;
     public Transform directionPoint;
+    public LayerMask mapMask;
     private float lastFireTime;
     private Transform rotateY;
     private float lastAngleY;
@@ -34,12 +36,27 @@ public class GroundTurret : Enemy
         targetPlayer = target.GetComponentInParent<Player>();
     }
 
+    bool CanSeeTarget() {
+        Vector3 direction = (target.position - firePoint.position).normalized;
+        return !Physics.Raycast(firePoint.position, direction, findDistance + 10f, mapMask);
+    }
+
+    bool CanShoot() {
+        if (!(target && targetPlayer))
+            return false;
+
+        float distance = (target.position - firePoint.position).magnitude;
+        
+        return currentHealth != 0 && targetPlayer.GetHealth() != 0 && distance < findDistance && CanSeeTarget();
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
 
-        if (!target || currentHealth == 0 || (targetPlayer && targetPlayer.GetHealth() == 0)) {
+        if (!CanShoot()) {
+            // Debug.Log("Cant shoot");
             return;
         }
 
@@ -71,10 +88,10 @@ public class GroundTurret : Enemy
             bulletScript.speed = bulletSpeed;
             bulletScript.direction = Vector3.Normalize(shootDirection);
             bulletScript.damage = damage;
-            // bulletScript.enabled = true;
-
-            // Activate bullet clone
-            // bulletClone.gameObject.SetActive(true);
         }
-    } 
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawSphere(firePoint.position, findDistance);
+    }
 }

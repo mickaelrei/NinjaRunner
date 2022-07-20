@@ -362,16 +362,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa8e237fa9309843a69c87428cdb44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 1
   currentHealth: 0
   damage: 3
   fireDelay: 0.7
   bulletSpeed: 30
   rotateLerp: 0.005
+  findDistance: 30
   target: {fileID: 0}
   bulletTemplate: {fileID: 3565410051731447541, guid: 82c8179ed7238ac42ad828c94b07ce4c, type: 3}
   firePoint: {fileID: 2330283393568107420}
   directionPoint: {fileID: 8820766377071326164}
+  mapMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &2330283392118648238
 MonoBehaviour:
   m_ObjectHideFlags: 0

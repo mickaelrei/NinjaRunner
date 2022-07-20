@@ -48,14 +48,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc988517ead4f7240b783a0638599201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 5605053746146780484, guid: a3137e9f3cd8b30498eadd94866cb3fd, type: 3}
+  cosmeticTransform: {fileID: 7149785144383394570, guid: c45e7f081460e8e44a07768b4274b0cd, type: 3}
   direction: {x: 0, y: 0, z: 0}
   speed: 0
   damage: 0
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  lifetime: 5
+  numCosmetics: 5
+  lifetime: 20
 --- !u!96 &8799568656421418854
 TrailRenderer:
   serializedVersion: 2
@@ -97,10 +98,10 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.25
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -160,7 +161,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0.5
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!82 &6518388990521939791
@@ -170,7 +171,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3565410051731447542}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 403b0d5477967014b8d0898cf3c54908, type: 3}
@@ -966,7 +967,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3565410051731447542}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

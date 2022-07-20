@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Transform cube;
+    public Transform cosmeticTransform;
     public Vector3 direction;
     public float speed;
     public float damage;
     public LayerMask hitLayerMask;
+    public int numCosmetics;
     public float lifetime = 15f;
     private float startTime;
     private List<Player> hitPlayers;
@@ -25,11 +26,14 @@ public class Bullet : MonoBehaviour
 
         // Disable collision between bullet and player
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Bullet"), LayerMask.NameToLayer("Player"));
-    }
 
-    void AddCube() {
-        Transform cubeClone = Instantiate(cube);
-        cubeClone.position = transform.position;
+        for (int i = 0; i < numCosmetics; i++) {
+            Transform cosmetic = Instantiate(cosmeticTransform);
+            cosmetic.parent = transform;
+            BulletCosmetic bulletCosmetic = cosmetic.GetComponent<BulletCosmetic>();
+            bulletCosmetic.offset = i * 1.15f;
+            bulletCosmetic.bullet = transform;
+        }
     }
 
     void FixedUpdate()
@@ -41,7 +45,7 @@ public class Bullet : MonoBehaviour
         }
 
         // Check for collisions
-        Collider[] colliders = Physics.OverlapSphere(transform.position, bulletRadius, hitLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, .1f, hitLayerMask);
         foreach (Collider coll in colliders) {
             // Check for player hit
             if (coll.gameObject.tag == "Player") {
@@ -50,8 +54,7 @@ public class Bullet : MonoBehaviour
                 if (!hitPlayers.Contains(player)) {
                     hitPlayers.Add(player);
                     if (player.GetHealth() > 0) {
-                        Debug.Log("Hit player on object " + coll.gameObject.name);
-                        AddCube();
+                        // Debug.Log("Hit player on object " + coll.gameObject.name);
                         player.TakeDamage(damage);
                     }
                 }
@@ -63,7 +66,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnDrawGizmos() {
-        // Gizmos.DrawWireSphere(transform.position, 4f);
-        Gizmos.DrawCube(transform.position, Vector3.one * 3f);
+        Gizmos.DrawWireSphere(transform.position, .1f);
+        // Gizmos.DrawCube(transform.position, Vector3.one * 3f);
     }
 }

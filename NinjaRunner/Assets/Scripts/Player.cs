@@ -32,6 +32,7 @@ public class Player : Creature
     private Vector3 currentMovement;
     [SerializeField] private Vector3 currentVelocity;
     private float xRotation;
+    private bool isPlaying = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -51,10 +52,10 @@ public class Player : Creature
         currentSpeed = speed;
         head = transform.Find("Head");
         characterController = GetComponent<CharacterController>();
+    }
 
-        // Change cursor lock state
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
+    void OnPlay() {
+        isPlaying = true;
     }
 
     void HandleRotation() {
@@ -124,8 +125,10 @@ public class Player : Creature
         base.Update();
         
         // If game is paused, don't update movement or camera
-        if (isPaused) return;
-
+        if (isPaused || !isPlaying) {
+            // Debug.Log("Not playing or paused");
+            return;
+        }
         // Check if is grounded
         Collider[] colliders = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundLayer);
         if (colliders.Length > 0)
@@ -177,7 +180,8 @@ public class Player : Creature
         if (isPaused) {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-        } else {
+        } else if (isPlaying) {
+            Debug.Log("Set cursor to invisible on Focus");
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
         }
@@ -188,7 +192,8 @@ public class Player : Creature
         if (isPaused) {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-        } else {
+        } else if (isPlaying) {
+            Debug.Log("Set cursor to invisible on Pause");
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = false;
         }
