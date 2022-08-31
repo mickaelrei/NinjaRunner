@@ -12,7 +12,7 @@ public class GroundTurret : Enemy
     public Transform bulletTemplate;
     public Transform firePoint;
     public Transform directionPoint;
-    public LayerMask mapMask;
+    public LayerMask raycastMask;
     private float lastFireTime;
     private Transform rotateY;
     private float lastAngleY;
@@ -38,7 +38,31 @@ public class GroundTurret : Enemy
 
     bool CanSeeTarget() {
         Vector3 direction = (target.position - firePoint.position).normalized;
-        return !Physics.Raycast(firePoint.position, direction, findDistance + 10f, mapMask);
+        // return !Physics.Raycast(firePoint.position, direction, findDistance + 10f, raycastMask);
+        RaycastHit[] hits = Physics.RaycastAll(firePoint.position, direction, findDistance + 10f, raycastMask);
+        Transform closest = target;
+        float minDistance = Mathf.Infinity;
+        foreach (RaycastHit hit in hits) {
+            float distance = (hit.transform.position - firePoint.position).magnitude;
+            if (distance < minDistance) {
+                minDistance = distance;
+                closest = hit.transform;
+            }
+        }
+
+        if (hits.Length > 0) {
+            // Debug.Log("Hit something");
+            if (closest.tag == "Player") {
+                // Debug.Log("Hit player");
+                return true;
+            } else {
+                // Debug.Log("Hit not player");
+                return false;
+            }
+        } else {
+            // Debug.Log("Hit nothing");
+            return true;
+        }
     }
 
     bool CanShoot() {

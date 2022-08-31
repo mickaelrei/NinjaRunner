@@ -367,15 +367,15 @@ MonoBehaviour:
   damage: 3
   fireDelay: 0.7
   bulletSpeed: 30
-  rotateLerp: 0.005
+  rotateLerp: 0.05
   findDistance: 30
   target: {fileID: 0}
   bulletTemplate: {fileID: 3565410051731447541, guid: 82c8179ed7238ac42ad828c94b07ce4c, type: 3}
   firePoint: {fileID: 2330283393568107420}
   directionPoint: {fileID: 8820766377071326164}
-  mapMask:
+  raycastMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 520
 --- !u!114 &2330283392118648238
 MonoBehaviour:
   m_ObjectHideFlags: 0

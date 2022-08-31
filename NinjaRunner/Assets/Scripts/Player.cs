@@ -102,7 +102,7 @@ public class Player : Creature
                 currentJumps++;
 
                 // Add velocity
-                currentVelocity.y += Mathf.Sqrt(jumpHeight * -2 * gravityForce);
+                currentVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
                 // Debug.Log("Jumped");
                 lastJumpTime = Time.time;
             }
