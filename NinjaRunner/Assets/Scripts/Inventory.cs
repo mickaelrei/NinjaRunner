@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public List<Transform> weaponsList = new List<Transform>();
+    public Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -15,8 +16,16 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("")) {
-            
+        for (int i = (int) KeyCode.Alpha0 ; i <= (int) KeyCode.Alpha9; i++)
+        {
+            if (Input.GetKeyDown( (KeyCode) i)) {
+                // Debug.Log("Pressed number " + (i - (int) KeyCode.Alpha0).ToString());
+                EquipWeapon(i - (int) KeyCode.Alpha0);
+            }
         }
+    }
+
+    void EquipWeapon(int weaponIndex) {
+        
     }
 }

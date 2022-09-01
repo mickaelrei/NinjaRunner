@@ -42,6 +42,7 @@ public class Player : Creature
         // Set variables
         if (!cam) {
             cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+            Debug.Log(cam.name);
         }
         if (!currentWeapon) {
             Transform weaponTransform = cam.Find("Weapon");

@@ -6,10 +6,7 @@ public class Weapon : MonoBehaviour
 {
     public Player player;
     public float attackDamage = 3f;
-    public Transform attackPoint;
-    public float attackRadius = 1f;
     public float attackDelay = .5f;
-    public float attackDuration = .3f;
     public LayerMask enemyLayer;
     public float jumpLerp = .05f;
     public float speedLerp = .2f;
@@ -17,12 +14,11 @@ public class Weapon : MonoBehaviour
     private int availableJumps;
     private float targetSpeed;
     private float lerpThreshold = .01f;
-    private float lastAttackTime;
-    private bool isAttacking = false;
-    private List<Enemy> lastAttackEnemies;
+    protected float lastAttackTime;
+    protected List<Enemy> lastAttackEnemies;
     
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         if (!player) {
             player = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -58,25 +54,16 @@ public class Weapon : MonoBehaviour
         animator.SetFloat("Jump", jump);
     }
 
+    protected virtual void Fire() {
+        lastAttackTime = Time.time;
+    }
+
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        // Check if is currently attacking
-        if (Time.time < lastAttackTime + attackDuration) {
-            isAttacking = true;
-        } else {
-            isAttacking = false;
-
-            // Clear last attack enemies list
-            for (int i = 0; i < lastAttackEnemies.Count; i++)
-            {
-                lastAttackEnemies.RemoveAt(i);
-            }
-        }
-
         // Check for mouse click
         if (Input.GetButtonDown("Fire1") && Time.time > lastAttackTime + attackDelay) {
-            lastAttackTime = Time.time;
+            Fire();
             animator.SetTrigger("Attack");
         }
 
@@ -106,31 +93,5 @@ public class Weapon : MonoBehaviour
             targetSpeed = 0f;
         }
         LerpSpeed();
-    }
-
-    private void FixedUpdate() {
-        if (!isAttacking) {
-            return;
-        }
-
-        // Check for overlaps
-        Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRadius, enemyLayer);
-        foreach (Collider coll in colliders)
-        {
-            // Try to find enemy component
-            Enemy enemy = coll.GetComponent<Enemy>();
-            if (!enemy) {
-                continue;
-            }
-
-            // Try to apply damage on hit enemy
-            if (enemy.GetHealth() > 0 && !lastAttackEnemies.Contains(enemy)) {
-                lastAttackEnemies.Add(enemy);
-                enemy.TakeDamage(attackDamage);
-            }
-        }
-    }
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 }
