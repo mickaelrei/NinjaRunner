@@ -16,6 +16,11 @@ public class Sword : Weapon
         base.Start();
     }
 
+    protected override void ChangeAvailableJumps(int newAvailableJumps)
+    {
+        base.ChangeAvailableJumps(newAvailableJumps);
+    }
+
     // Update is called once per frame
     protected override void Update()
     {

@@ -32,7 +32,7 @@ public class Weapon : MonoBehaviour
         lastAttackEnemies = new List<Enemy>();
     }
 
-    public void ChangeAvailableJumps(int newAvailableJumps) {
+    protected virtual void ChangeAvailableJumps(int newAvailableJumps) {
         availableJumps = newAvailableJumps;
     }
 

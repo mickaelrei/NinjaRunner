@@ -9,16 +9,19 @@ public class ThrownShuriken : MonoBehaviour
     public float attackRadius = 1f;
     public float raycastDistance;
     public LayerMask enemyLayer;
-    public Vector3 direction;
-    public Vector3 up;
     private float startTime;
+    private Vector3 up;
+    private Vector3 direction;
+    
     // Start is called before the first frame update
     void Start()
     {
         startTime = Time.time;
+        direction = transform.forward;
 
         // Rotate sideways randomly
-        // transform.Rotate(transform.forward, Random.Range(-10f, 10f), Space.Self);
+        transform.Rotate(transform.forward, Random.Range(-20f, 20f), Space.World);
+        up = transform.up;
     }
 
     // Update is called once per frame

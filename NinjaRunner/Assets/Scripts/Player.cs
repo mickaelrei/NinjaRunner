@@ -59,6 +59,11 @@ public class Player : Creature
         isPlaying = true;
     }
 
+    public void EquipWeapon(Weapon weapon) {
+        Debug.Log("Equipped " + weapon.name);
+        currentWeapon = weapon;
+    }
+
     void HandleRotation() {
         // Calculate camera rotation for mouse movement
         float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
@@ -166,6 +171,7 @@ public class Player : Creature
         if (!currentWeapon) {
             return;
         }
+
         currentWeapon.SendMessage("ChangeAvailableJumps", maxJumps - currentJumps);
     }
 

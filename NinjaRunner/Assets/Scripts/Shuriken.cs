@@ -17,6 +17,11 @@ public class Shuriken : Weapon
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
+    protected override void ChangeAvailableJumps(int newAvailableJumps)
+    {
+        base.ChangeAvailableJumps(newAvailableJumps);
+    }
+
     // Throw a shuriken and add to the list
     private void ThrowShuriken() {
         Transform newShuriken = Instantiate(shurikenTransform, shurikenTransform.position, Quaternion.LookRotation(cam.forward, cam.up));
@@ -25,10 +30,7 @@ public class Shuriken : Weapon
         script.enemyLayer = enemyLayer;
         script.speed = shurikenSpeed;
         script.raycastDistance = raycastDistance;
-        script.direction = cam.forward;
-        script.up = cam.up;
         script.enabled = true;
-        Debug.Log("Threw");
     }
 
     protected override void Fire()

@@ -665,7 +665,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8778297910128149776}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000002533197}
   m_LocalPosition: {x: -0.267, y: -0.368, z: 0.833}
   m_LocalScale: {x: 0.22764, y: 0.22764, z: 0.22764}
   m_Children:
@@ -707,17 +707,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  attackDamage: 3
-  attackDelay: 0.5
+  attackDamage: 1
+  attackDelay: 0.3
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   jumpLerp: 0.05
   speedLerp: 0.2
   shurikenTransform: {fileID: 8778297910379538936}
-  shurikenLifeTime: 3
-  shurikenSpeed: 1
-  raycastDistance: 5
+  shurikenLifeTime: 15
+  shurikenSpeed: 55
+  raycastDistance: 25
 --- !u!1 &8778297910206742401
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 3
   speed: 1
+  attackRadius: 1
   raycastDistance: 5
   enemyLayer:
     serializedVersion: 2
