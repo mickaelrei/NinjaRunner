@@ -78,20 +78,28 @@ public class Weapon : MonoBehaviour
             LerpJump();
         }
 
-        // Change target speed based on movement
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
-            // Moving
-            if (Input.GetKey(KeyCode.LeftShift)) {
-                // Running
-                targetSpeed = 1f;
-            } else {
-                // Only walking
-                targetSpeed = .1f;
-            }
-        } else {
-            // Not moving
-            targetSpeed = 0f;
+        bool moving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+        if (!moving) {
+            animator.SetFloat("Speed", 0f, 0.2f, Time.deltaTime);
+        } else if (moving && Input.GetKey(KeyCode.LeftShift)) {
+            animator.SetFloat("Speed", 0.5f, 0.2f, Time.deltaTime);
+        } else if (moving && Input.GetKey(KeyCode.LeftShift)) {
+        animator.SetFloat("Speed", 1f, 0.2f, Time.deltaTime);
         }
-        LerpSpeed();
+        // Change target speed based on movement
+        // if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+        //     // Moving
+        //     if (Input.GetKey(KeyCode.LeftShift)) {
+        //         // Running
+        //         targetSpeed = 1f;
+        //     } else {
+        //         // Only walking
+        //         targetSpeed = .1f;
+        //     }
+        // } else {
+        //     // Not moving
+        //     targetSpeed = 0f;
+        // }
+        // LerpSpeed();
     }
 }
