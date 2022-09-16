@@ -56,12 +56,15 @@ public class Player : Creature
     }
 
     void OnPlay() {
+        Debug.Log("Playing");
         isPlaying = true;
+        currentWeapon.Equip();
     }
 
     public void EquipWeapon(Weapon weapon) {
         Debug.Log("Equipped " + weapon.name);
         currentWeapon = weapon;
+        currentWeapon.Equip();
     }
 
     void HandleRotation() {
@@ -117,7 +120,6 @@ public class Player : Creature
         // If grounded, set velocity to zero
         if (onGround && currentVelocity.y < 0f) {
             // Debug.Log("Set velocityY to zero");
-            Debug.Log("On ground");
             currentVelocity.y = -2f;
         }
 

@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public Player player;
     public float attackDamage = 3f;
     public float attackDelay = .5f;
+    public float equipTime = 2f;
     public LayerMask enemyLayer;
     public float jumpLerp = .05f;
     public float speedLerp = .2f;
@@ -16,6 +17,8 @@ public class Weapon : MonoBehaviour
     private float lerpThreshold = .01f;
     protected float lastAttackTime;
     protected List<Enemy> lastAttackEnemies;
+    private bool equipped = false;
+    private float equippedTime;
     
     // Start is called before the first frame update
     protected virtual void Start()
@@ -34,6 +37,13 @@ public class Weapon : MonoBehaviour
 
     protected virtual void ChangeAvailableJumps(int newAvailableJumps) {
         availableJumps = newAvailableJumps;
+    }
+
+    public void Equip() {
+        Debug.Log("Equipping");
+        if (animator) animator.SetTrigger("Equip");
+        equipped = true;
+        equipTime = Time.time;
     }
 
     private void LerpSpeed() {
@@ -61,10 +71,21 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (!(equipped && Time.time > equippedTime + equipTime)) {
+            Debug.Log("Still equipping!");
+            return;
+        }
         // Check for mouse click
         if (Input.GetButtonDown("Fire1") && Time.time > lastAttackTime + attackDelay) {
+            Debug.Log("Attacking, diff: " + (Time.time - (lastAttackTime + attackDelay)));
             Fire();
             animator.SetTrigger("Attack");
+        } else if (Input.GetButtonDown("Fire1")) {
+            Debug.Log("Current time: " + Time.time + ", last: " + lastAttackTime);
+        }
+
+        if (Input.GetKey(KeyCode.Q)) {
+            animator.SetTrigger("Unequip");
         }
 
         // Check for jumping

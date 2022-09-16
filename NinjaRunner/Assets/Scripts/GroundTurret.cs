@@ -115,7 +115,11 @@ public class GroundTurret : Enemy
         }
     }
 
+    protected override void Die() {
+        base.Die();
+    }
+
     private void OnDrawGizmos() {
-        Gizmos.DrawSphere(firePoint.position, findDistance);
+        Gizmos.DrawWireSphere(firePoint.position, findDistance);
     }
 }

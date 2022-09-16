@@ -49,14 +49,16 @@ public class Sword : Weapon
         Collider[] colliders = Physics.OverlapSphere(attackPoint.position, attackRadius, enemyLayer);
         foreach (Collider coll in colliders)
         {
+            Transform root = coll.transform.root;
             // Try to find enemy component
-            Enemy enemy = coll.GetComponent<Enemy>();
+            Enemy enemy = root.GetComponent<Enemy>();
             if (!enemy) {
                 continue;
             }
 
             // Try to apply damage on hit enemy
             if (enemy.GetHealth() > 0 && !lastAttackEnemies.Contains(enemy)) {
+                Debug.Log("Attacked");
                 lastAttackEnemies.Add(enemy);
                 enemy.TakeDamage(attackDamage);
             }
