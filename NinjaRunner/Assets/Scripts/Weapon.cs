@@ -72,7 +72,7 @@ public class Weapon : MonoBehaviour
     protected virtual void Update()
     {
         if (!(equipped && Time.time > equippedTime + equipTime)) {
-            Debug.Log("Still equipping!");
+            // Debug.Log("Still equipping!");
             return;
         }
         // Check for mouse click

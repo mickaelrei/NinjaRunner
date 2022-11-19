@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     public Transform spawnPoint;
 
     public void OnPlay() {
+        Debug.Log("cliccccccccck");
         // Disable canvas
         GetComponent<Canvas>().enabled = false;
 
