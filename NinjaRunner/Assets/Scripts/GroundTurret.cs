@@ -38,7 +38,6 @@ public class GroundTurret : Enemy
 
     bool CanSeeTarget() {
         Vector3 direction = (target.position - firePoint.position).normalized;
-        // return !Physics.Raycast(firePoint.position, direction, findDistance + 10f, raycastMask);
         RaycastHit[] hits = Physics.RaycastAll(firePoint.position, direction, findDistance + 10f, raycastMask);
         Transform closest = target;
         float minDistance = Mathf.Infinity;
@@ -79,8 +78,11 @@ public class GroundTurret : Enemy
     {
         base.Update();
 
+        if (isDead) {
+            transform.localScale = new Vector3(.5f, .5f, .5f);
+        }
+
         if (!CanShoot()) {
-            // Debug.Log("Cant shoot");
             return;
         }
 

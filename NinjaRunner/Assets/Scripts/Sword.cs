@@ -58,7 +58,7 @@ public class Sword : Weapon
 
             // Try to apply damage on hit enemy
             if (enemy.GetHealth() > 0 && !lastAttackEnemies.Contains(enemy)) {
-                Debug.Log("Attacked");
+                Debug.Log("Attacking " + root.name);
                 lastAttackEnemies.Add(enemy);
                 enemy.TakeDamage(attackDamage);
             }
@@ -66,6 +66,6 @@ public class Sword : Weapon
     }
 
     private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+        // Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 }

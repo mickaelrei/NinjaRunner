@@ -84,9 +84,9 @@ public class Weapon : MonoBehaviour
             Debug.Log("Current time: " + Time.time + ", last: " + lastAttackTime);
         }
 
-        if (Input.GetKey(KeyCode.Q)) {
-            animator.SetTrigger("Unequip");
-        }
+        // if (Input.GetKey(KeyCode.Q)) {
+        //     animator.SetTrigger("Unequip");
+        // }
 
         // Check for jumping
         if (Input.GetKeyDown(KeyCode.Space)) {

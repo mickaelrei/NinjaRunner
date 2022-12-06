@@ -10,9 +10,6 @@ public class Enemy : Creature
     protected override void Start()
     {
         base.Start();
-
-        // meshRenderer = GetComponent<MeshRenderer>();
-        // meshRenderer.material.color = Color.HSVToRGB(Random.Range(0f, 1f), 1f, .5f);
     }
 
     // Update is called once per frame

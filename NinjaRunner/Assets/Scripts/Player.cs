@@ -19,6 +19,7 @@ public class Player : Creature
     public float mouseSens = 250f;
     public float maxLookDownAngle = 80;
     public float maxLookUpAngle = 80;
+    public MainMenu menu;
     [SerializeField] private float currentSpeed;
     // private Rigidbody rb;
     private float initialAngleX;
@@ -32,7 +33,7 @@ public class Player : Creature
     private Vector3 currentMovement;
     [SerializeField] private Vector3 currentVelocity;
     private float xRotation;
-    private bool isPlaying = false;
+    private bool isPlaying = true;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -94,16 +95,16 @@ public class Player : Creature
             bool canJump = false;
             if (onGround) {
                 // On ground, reset current jumps
-                // Debug.Log("Can jump because on ground");
+                Debug.Log("Can jump because on ground");
                 currentJumps = 0;
                 currentWeapon.SendMessage("ChangeAvailableJumps", maxJumps);
                 canJump = true;
             } else if (currentJumps < maxJumps) {
                 // On air, don't reset current jumps
                 canJump = true;
-                // Debug.Log("Can jump because on air and has jumps available");
+                Debug.Log("Can jump because on air and has jumps available");
             } else {
-                // Debug.Log("Can't jump");
+                Debug.Log("Can't jump");
             }
 
             // Check if jump cooldown has passed
@@ -112,7 +113,7 @@ public class Player : Creature
 
                 // Add velocity
                 currentVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
-                // Debug.Log("Jumped");
+                Debug.Log("Jumped");
                 lastJumpTime = Time.time;
             }
         }
@@ -132,6 +133,10 @@ public class Player : Creature
     protected override void Update()
     {
         base.Update();
+
+        if (isDead) {
+            return;
+        }
         
         // If game is paused, don't update movement or camera
         if (isPaused || !isPlaying) {
@@ -169,9 +174,21 @@ public class Player : Creature
         }
     }
 
+    protected override void Die()
+    {
+        base.Die();
+
+        // Show menu
+        menu.OnDeath();
+    }
+
     private void LateUpdate() {
         // Send message to weapon about available jumps
         if (!currentWeapon) {
+            return;
+        }
+
+        if (isDead) {
             return;
         }
 
@@ -179,6 +196,10 @@ public class Player : Creature
     }
 
     private void FixedUpdate() {
+        if (isDead) {
+            return;
+        }
+
         onGround = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckRadius, groundLayer);
         if (onGround) {
             //currentJumps = 0;

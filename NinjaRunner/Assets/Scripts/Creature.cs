@@ -6,7 +6,7 @@ public class Creature : MonoBehaviour
 {
     public float maxHealth = 10f;
     [SerializeField] private protected float currentHealth;
-    private bool isDead;
+    protected bool isDead;
     // Start is called before the first frame update
     protected virtual void Start()
     {
