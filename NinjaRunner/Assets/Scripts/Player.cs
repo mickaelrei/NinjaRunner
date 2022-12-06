@@ -137,6 +137,10 @@ public class Player : Creature
         if (isDead) {
             return;
         }
+
+        if (transform.position.y < -25f){
+            Die();
+        }
         
         // If game is paused, don't update movement or camera
         if (isPaused || !isPlaying) {
