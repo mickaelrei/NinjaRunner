@@ -33,7 +33,7 @@ public class Player : Creature
     private Vector3 currentMovement;
     [SerializeField] private Vector3 currentVelocity;
     private float xRotation;
-    private bool isPlaying = true;
+    private bool isPlaying = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -209,6 +209,7 @@ public class Player : Creature
     private void OnApplicationFocus(bool focusStatus) {
         isPaused = !focusStatus;
         if (isPaused) {
+            Debug.Log("Visible");
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         } else if (isPlaying) {
@@ -221,6 +222,7 @@ public class Player : Creature
     private void OnApplicationPause(bool pauseStatus) {
         isPaused = pauseStatus;
         if (isPaused) {
+            Debug.Log("Visible");
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         } else if (isPlaying) {

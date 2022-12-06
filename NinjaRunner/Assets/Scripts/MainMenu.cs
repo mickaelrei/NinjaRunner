@@ -17,7 +17,6 @@ public class MainMenu : MonoBehaviour
     }
 
     public void OnPlay() {
-        Debug.Log("cliccccccccck");
         // Disable canvas
         canvas.enabled = false;
 
@@ -26,7 +25,7 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = false;
 
         // Tell player to start moving
-        player.transform.position = spawnPoint.transform.position;
+        // player.transform.position = spawnPoint.transform.position;
         player.SendMessage("OnPlay");
 
         // Hide title and play button
